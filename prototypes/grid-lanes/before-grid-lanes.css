@@ -67,10 +67,7 @@ body {
   width: 280px;
 }
 
-/* Wide card: JavaScript will handle spanning 2 columns */
-.card--wide {
-  /* Width will be set to 2 columns by JavaScript */
-}
+/* Wide card class is used by JavaScript for 2-column spans. */
 
 .card h2 {
   margin: 0;
