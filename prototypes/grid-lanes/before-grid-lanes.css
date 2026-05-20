@@ -38,46 +38,38 @@ body {
   color: var(--muted);
 }
 
-.compat-note {
-  display: inline-block;
-  margin-top: 0.75rem;
-  font-size: 0.78rem;
-  background: rgba(63, 183, 255, 0.12);
-  border: 1px solid rgba(63, 183, 255, 0.3);
-  border-radius: 999px;
-  padding: 0.25rem 0.75rem;
-  color: var(--accent);
-}
-
-/* ─── The actual Grid Lanes layout ──────────────────── */
+/* ─── The JavaScript Masonry layout (the classic pre-Grid Lanes approach) ──────────────────── */
 .gallery {
   width: min(1160px, 94vw);
   margin: 1rem auto 3rem;
 
-  /* display: grid-lanes — the key new display value.
-     Items flow into the shortest available lane, masonry-style. */
-  display: grid-lanes;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1rem;
-
-  /* flow-tolerance: how close two lanes' heights need to be
-     before the browser stops trying to be clever and just
-     places in source order. Default is 1em. */
-  flow-tolerance: 1em;
+  /* JavaScript masonry uses absolute positioning and manual column layout */
+  position: relative;
+  
+  /* The container height is set by JavaScript based on the tallest column */
+  min-height: 400px;
 }
 
 /* ─── Cards ──────────────────────────────────────────── */
+/* Cards are absolutely positioned by JavaScript */
 .card {
+  position: absolute;
+  top: 0;
+  left: 0;
+
   background: linear-gradient(180deg, var(--surface), var(--surface-2));
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 0.8rem;
   box-shadow: 0 12px 24px rgba(4, 10, 20, 0.35);
+
+  /* Will be set to calculated width by JavaScript */
+  width: 280px;
 }
 
-/* Spanning example: this card stretches across 2 lanes */
+/* Wide card: JavaScript will handle spanning 2 columns */
 .card--wide {
-  grid-column: span 2;
+  /* Width will be set to 2 columns by JavaScript */
 }
 
 .card h2 {

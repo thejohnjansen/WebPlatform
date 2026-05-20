@@ -145,6 +145,30 @@ h1 {
   color: var(--muted);
 }
 
+.card-links-heading,
+.card-links-row {
+  margin-top: 0.8rem;
+}
+
+.card-links a {
+  color: #d9e9ff;
+  text-decoration: underline;
+  text-decoration-color: rgba(63, 143, 255, 0.65);
+  text-underline-offset: 0.18em;
+  font-weight: 500;
+}
+
+.card-links a:hover {
+  color: #ffffff;
+  text-decoration-color: rgba(0, 198, 180, 0.92);
+}
+
+.card-links-row {
+  display: flex;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+}
+
 .site-footer {
   font-size: 0.9rem;
   color: #9cb8dc;

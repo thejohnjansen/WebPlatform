@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Before Grid Lanes: CSS Columns Approach</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="before-grid-lanes.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <h1>Before Grid Lanes: CSS Columns</h1>
+      <p>
+        This is how developers created masonry-like layouts before <code>display: grid-lanes</code> arrived. 
+        Using CSS <code>column-count</code>, browsers automatically distribute items into columns. Note the 
+        trade-offs: items flow vertically down one column before moving to the next, and tab order follows 
+        visual layout rather than source order.
+      </p>
+    </header>
+
+    <main class="gallery">
+      <article class="card">
+        <h2>CSS Columns</h2>
+        <p>The primary pre-Grid Lanes approach. The <code>column-count</code> property tells the browser how many columns to create, and items are distributed top-to-bottom within each column.</p>
+      </article>
+
+      <article class="card">
+        <h2>Vertical Flow Issue</h2>
+        <p>Items flow down the first column completely before wrapping to the next column. This can create awkward reading patterns. With 3 items and 3 columns, all items end up in their own column.</p>
+      </article>
+
+      <article class="card">
+        <h2>column-gap</h2>
+        <p>Control spacing between columns with <code>column-gap</code>. This was the main way to add breathing room before the modern <code>gap</code> property in Grid.</p>
+      </article>
+
+      <article class="card">
+        <h2>column-fill</h2>
+        <p>Set <code>column-fill: auto</code> to make columns progressively narrower if content doesn't fill them evenly. The default <code>column-fill: balance</code> tries to make all columns equal height.</p>
+      </article>
+
+      <article class="card">
+        <h2>Spanning Elements</h2>
+        <p>Use <code>break-inside: avoid</code> to prevent cards from being split across columns. However, making an item span all columns with <code>column-span: all</code> requires taking it out of the flow entirely.</p>
+      </article>
+
+      <article class="card">
+        <h2>No Responsive Lanes</h2>
+        <p>You must use media queries to change <code>column-count</code> at different breakpoints. Grid Lanes' <code>repeat(auto-fill, ...)</code> adapts automatically without explicit breakpoints.</p>
+      </article>
+
+      <article class="card">
+        <h2>Tab Order Problem</h2>
+        <p>Screen readers and keyboard navigation follow the visual column layout, not the HTML source order. This breaks semantic meaning and accessibility — users tabbing through get sent to unexpected places.</p>
+      </article>
+
+      <article class="card">
+        <h2>JavaScript Masonry Libraries</h2>
+        <p>Before CSS Columns matured, the standard solution was JavaScript libraries like Masonry.js. These measure each item's height, calculate the shortest column, and update positions — expensive work in the browser's main thread.</p>
+      </article>
+
+      <article class="card">
+        <h2>The Balancing Act</h2>
+        <p>Columns try to "balance" height across all columns, but content is unpredictable. Five tall items and one short one results in uneven heights. No fine-grained control over placement algorithm.</p>
+      </article>
+
+      <article class="card">
+        <h2>Performance Trade-offs</h2>
+        <p>CSS Columns don't require JavaScript, but they're calculated during layout. Large content changes force the browser to recalculate all column heights and reflow everything. Grid Lanes puts this burden on the CSS engine, not JS.</p>
+      </article>
+
+      <article class="card card--wide">
+        <h2>Why Grid Lanes is Better</h2>
+        <p>Grid Lanes brings masonry layout to CSS Grid with automatic flow, predictable tab order that matches source, responsive column counts, no JavaScript needed, and fine control over the placement algorithm via <code>flow-tolerance</code>. It's the proper platform solution to a problem developers have struggled with for over a decade.</p>
+      </article>
+    </main>
+
+    <script src="before-grid-lanes.js"></script>
+  </body>
+</html>

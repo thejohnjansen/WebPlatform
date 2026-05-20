@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Grid Lanes Prototype</title>
+    <title>CSS Grid Lanes Prototype</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -13,38 +13,70 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main class="board">
-      <header class="board-header">
-        <h1>CSS Grid Lanes</h1>
-        <p>A simple lane layout using CSS Grid for prototype and test-case experiments.</p>
-      </header>
+    <header class="site-header">
+      <h1>CSS Grid Lanes</h1>
+      <p>
+        Each card below is placed by <code>display: grid-lanes</code> — the browser flows
+        items into whichever lane is shortest, with no JavaScript and no manual column assignment.
+      </p>
+    </header>
 
-      <section class="lanes" aria-label="Grid lanes board">
-        <article class="lane">
-          <h2>Backlog</h2>
-          <div class="item">Define explainer scope</div>
-          <div class="item">Collect use cases</div>
-          <div class="item">Write initial draft</div>
-        </article>
+    <main class="gallery">
+      <article class="card">
+        <h2>display: grid-lanes</h2>
+        <p>The new display value that enables masonry-style layout natively in CSS. Items flow into the shortest available lane automatically.</p>
+      </article>
 
-        <article class="lane">
-          <h2>In Progress</h2>
-          <div class="item">Prototype lane spacing</div>
-          <div class="item">Tune card contrast</div>
-        </article>
+      <article class="card">
+        <h2>grid-template-columns</h2>
+        <p>Define the lanes. Use <code>repeat(auto-fill, minmax(250px, 1fr))</code> to get responsive columns without any media queries.</p>
+      </article>
 
-        <article class="lane">
-          <h2>Review</h2>
-          <div class="item">Cross-browser check</div>
-          <div class="item">Refine mobile layout</div>
-        </article>
+      <article class="card">
+        <h2>flow-tolerance</h2>
+        <p>Controls how picky the placement algorithm is. The default is <code>1em</code>, meaning items within 1em of each other in remaining space are treated as a tie and placed in source order.</p>
+        <p>Set it higher for calmer, more left-to-right flow. Set it lower (including <code>0</code>) for strict shortest-column placement.</p>
+      </article>
 
-        <article class="lane">
-          <h2>Done</h2>
-          <div class="item">Set up repo structure</div>
-          <div class="item">Create template files</div>
-        </article>
-      </section>
+      <article class="card">
+        <h2>Waterfall vs Brick</h2>
+        <p>Define <code>grid-template-columns</code> to get a waterfall (column-first) layout. Define <code>grid-template-rows</code> to get a brick (row-first) layout. The <code>grid-auto-flow: normal</code> default figures it out from which axis you define.</p>
+      </article>
+
+      <article class="card">
+        <h2>Spanning lanes</h2>
+        <p>Use <code>grid-column: span 2</code> to make an item span multiple lanes. Combined with <code>auto-fill</code> columns, this enables editorial layouts — hero items, featured cards — without row-based math.</p>
+      </article>
+
+      <article class="card">
+        <h2>No JavaScript required</h2>
+        <p>Traditional masonry layouts required a JS library like Masonry.js to measure and position items. Grid Lanes handles this entirely in the browser's layout engine.</p>
+      </article>
+
+      <article class="card">
+        <h2>Accessibility</h2>
+        <p>Tab order follows the HTML source order, not the visual column position. Users never get trapped tabbing to the bottom of one column before reaching the next. Screen readers follow the same order.</p>
+      </article>
+
+      <article class="card">
+        <h2>Placing items explicitly</h2>
+        <p>You can use <code>grid-column: -3 / -1</code> to pin an item to the last two lanes regardless of how many lanes the viewport creates. Great for sticky headers or nav areas inside the grid.</p>
+      </article>
+
+      <article class="card">
+        <h2>gap</h2>
+        <p>The <code>gap</code> property works the same as regular CSS Grid. It applies between lanes and between items within a lane.</p>
+      </article>
+
+      <article class="card">
+        <h2>Browser support</h2>
+        <p>Currently available in Safari Technology Preview 234+. The CSS Working Group has reached consensus on the core feature. Implementation in other engines is expected to follow. Watch <a href="https://webkit.org/blog/17660/introducing-css-grid-lanes/" target="_blank" rel="noopener">webkit.org</a> for updates.</p>
+      </article>
+
+      <article class="card card--wide">
+        <h2>Varying lane widths</h2>
+        <p>Since lanes are defined with full <code>grid-template-*</code> syntax, you can mix sizes. For example: <code>repeat(auto-fill, minmax(8rem, 1fr) minmax(16rem, 2fr)) minmax(8rem, 1fr)</code> creates alternating narrow and wide columns where the first and last column are always narrow.</p>
+      </article>
     </main>
   </body>
 </html>
