@@ -39,3 +39,12 @@ Or run a simple local server from the repo root if you prefer:
 ```bash
 npx serve .
 ```
+
+## GitHub Pages
+
+This repository now includes a root landing page at `index.html`, which is the default entry point GitHub Pages serves for a project site.
+
+- Site shell: `index.html`
+- Theme files: `assets/styles.css` and `assets/script.js`
+
+If your Pages source is set to this repository root (or the default branch root), the landing page will load automatically.
