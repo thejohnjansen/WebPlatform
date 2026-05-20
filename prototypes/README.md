@@ -13,3 +13,7 @@ Create one folder per prototype:
 ## Local testing
 
 Open `index.html` directly, or serve this repo with a local static server for cleaner relative-path behavior.
+
+## Included example
+
+- `prototypes/grid-lanes/` - a simple CSS Grid lanes board prototype.
