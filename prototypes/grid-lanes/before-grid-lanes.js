@@ -61,16 +61,32 @@ class SimpleJSMasonry {
     cards.forEach((card) => {
       // Handle wide cards: span 2 columns
       if (card.classList.contains('card--wide')) {
-        // Wide card anchors to the left (columns 0-1)
-        // But it should be placed below whichever of those two columns is taller
-        const bestCol = 0;
+        // Place wide cards in the shortest adjacent pair of columns.
+        // This mimics masonry behavior better than always anchoring left.
+        const colsToSpan = Math.min(2, columnCount);
+        let bestCol = 0;
+
+        if (colsToSpan > 1) {
+          let bestPairHeight = Infinity;
+          for (let col = 0; col <= columnCount - colsToSpan; col++) {
+            let pairHeight = 0;
+            for (let i = 0; i < colsToSpan; i++) {
+              pairHeight = Math.max(pairHeight, this.columnHeights[col + i]);
+            }
+
+            if (pairHeight < bestPairHeight) {
+              bestPairHeight = pairHeight;
+              bestCol = col;
+            }
+          }
+        }
+
         this.columns[bestCol].push(card);
 
         // Measure the card's height
         const cardHeight = card.offsetHeight;
 
         // Set its width to span 2 columns (or 1 if only 1 column exists)
-        const colsToSpan = Math.min(2, columnCount);
         let wideWidth = 0;
         for (let i = 0; i < colsToSpan; i++) {
           wideWidth += columnWidth;
