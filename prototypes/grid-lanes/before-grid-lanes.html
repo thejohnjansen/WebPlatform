@@ -69,14 +69,14 @@
         <p>Columns try to "balance" height across all columns, but content is unpredictable. Five tall items and one short one results in uneven heights. No fine-grained control over placement algorithm.</p>
       </article>
 
-      <article class="card">
-        <h2>Performance Trade-offs</h2>
-        <p>CSS Columns don't require JavaScript, but they're calculated during layout. Large content changes force the browser to recalculate all column heights and reflow everything. Grid Lanes puts this burden on the CSS engine, not JS.</p>
-      </article>
-
       <article class="card card--wide">
         <h2>Why Grid Lanes is Better</h2>
         <p>Grid Lanes brings masonry layout to CSS Grid with automatic flow, predictable tab order that matches source, responsive column counts, no JavaScript needed, and fine control over the placement algorithm via <code>flow-tolerance</code>. It's the proper platform solution to a problem developers have struggled with for over a decade.</p>
+      </article>
+
+      <article class="card">
+        <h2>Performance Trade-offs</h2>
+        <p>CSS Columns don't require JavaScript, but they're calculated during layout. Large content changes force the browser to recalculate all column heights and reflow everything. Grid Lanes puts this burden on the CSS engine, not JS.</p>
       </article>
     </main>
 
