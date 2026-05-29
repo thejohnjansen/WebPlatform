@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grid Lanes Tests</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0e1626;
+      --surface: #1a2639;
+      --surface-2: #22334c;
+      --text: #e5ecf8;
+      --muted: #a8b7cf;
+      --accent: #3fb7ff;
+      --accent-2: #00c6b4;
+      --border: #39516f;
+      --pass: #00c6b4;
+      --ref: #a78bfa;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Space Grotesk", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 10%, rgba(63, 183, 255, 0.18), transparent 33%),
+        linear-gradient(170deg, #0b1220, var(--bg));
+    }
+
+    header {
+      width: min(1060px, 94vw);
+      margin: 0 auto;
+      padding: 2.5rem 0 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.72rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #9ec1f3;
+      margin: 0 0 0.5rem;
+    }
+
+    .eyebrow::before {
+      content: "";
+      display: inline-block;
+      width: 0.7rem;
+      height: 0.7rem;
+      border-radius: 0.15rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    }
+
+    h1 {
+      margin: 0 0 0.4rem;
+      font-size: clamp(1.6rem, 3.5vw, 2.5rem);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.97rem;
+      max-width: 62ch;
+    }
+
+    .subtitle a {
+      color: var(--accent);
+      text-decoration-color: rgba(63, 183, 255, 0.45);
+      text-underline-offset: 0.2em;
+    }
+
+    main {
+      width: min(1060px, 94vw);
+      margin: 0 auto;
+      padding: 2rem 0 4rem;
+    }
+
+    .section-label {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.7rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin: 0 0 0.9rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    thead th {
+      text-align: left;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.68rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    tbody tr {
+      border-bottom: 1px solid rgba(57, 81, 111, 0.5);
+      transition: background 120ms ease;
+    }
+
+    tbody tr:hover {
+      background: rgba(63, 183, 255, 0.05);
+    }
+
+    td {
+      padding: 0.7rem 0.75rem;
+      vertical-align: top;
+    }
+
+    td:first-child {
+      width: 1%;
+      white-space: nowrap;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.78rem;
+    }
+
+    .spec-ref {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .desc {
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .links {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: nowrap;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.28rem 0.7rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: opacity 120ms ease;
+    }
+
+    .btn:hover { opacity: 0.8; }
+
+    .btn-test {
+      background: rgba(63, 183, 255, 0.15);
+      border: 1px solid rgba(63, 183, 255, 0.4);
+      color: var(--accent);
+    }
+
+    .btn-ref {
+      background: rgba(167, 139, 250, 0.12);
+      border: 1px solid rgba(167, 139, 250, 0.35);
+      color: var(--ref);
+    }
+
+    .issue-badge {
+      display: inline-block;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.65rem;
+      padding: 0.1rem 0.45rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 183, 77, 0.45);
+      background: rgba(255, 183, 77, 0.1);
+      color: #fbbf24;
+      white-space: nowrap;
+      vertical-align: middle;
+      margin-left: 0.35rem;
+    }
+
+    footer {
+      width: min(1060px, 94vw);
+      margin: 0 auto;
+      padding: 1.25rem 0;
+      border-top: 1px solid var(--border);
+      font-size: 0.84rem;
+      color: var(--muted);
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 700px) {
+      thead th:nth-child(2), td:nth-child(2) { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <p class="eyebrow">WebPlatform2026</p>
+    <h1>Grid Lanes Tests</h1>
+    <p class="subtitle">
+      Reftests targeting spec behaviors with sparse WPT coverage in
+      <a href="https://drafts.csswg.org/css-grid-3/" target="_blank" rel="noopener">CSS Grid Layout Level 3</a>.
+      Each row links to the test and its pixel-accurate reference rendering.
+    </p>
+  </header>
+
+  <main>
+    <p class="section-label">11 reftest pairs</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Test</th>
+          <th>Spec §</th>
+          <th>What it probes</th>
+          <th>Links</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>column-inline-grid-lanes-001</code></td>
+          <td><a class="spec-ref" href="https://drafts.csswg.org/css-grid-3/#grid-lanes-containers" target="_blank" rel="noopener">§2.2</a></td>
+          <td class="desc"><code>display: inline-grid-lanes</code> generates an inline-level box — two containers should sit side-by-side</td>
+          <td class="links">
+            <a class="btn btn-test" href="column-inline-grid-lanes-001.html">Test</a>
+            <a class="btn btn-ref"  href="column-inline-grid-lanes-001-ref.html">Ref</a>
+          </td>
+        </tr>
+        <tr>
+          <td><code>row-lanes-orientation-001</code></td>
+          <td><a class="spec-ref" href="https://drafts.csswg.org/css-grid-3/#grid-lanes-orientation" target="_blank" rel="noopener">§2.3</a><span class="issue-badge">ISSUE 3</span></td>
+          <td class="desc"><code>grid-template-rows</code> (with <code>grid-template-columns: none</code>) switches grid axis to block axis — brick-wall layout</td>
+          <td class="links">
+            <a class="btn btn-test" href="row-lanes-orientation-001.html">Test</a>
+            <a class="btn btn-ref"  href="row-lanes-orientation-001-ref.html">Ref</a>
+          </td>
+        </tr>
+        <tr>
+          <td><code>column-auto-fit-collapse-001</code></td>
+          <td><a class="spec-ref" href="https://drafts.csswg.org/css-grid-3/#repeat-auto-fit" target="_blank" rel="noopener">§3.3.1</a></td>
+          <td class="desc"><code>repeat(auto-fit)</code> collapses empty tracks using the span-sum heuristic; <code>repeat(auto-fill)</code> keeps them</td>
+          <td class="links">
+            <a class="btn btn-test" href="column-auto-fit-collapse-001.html">Test</a>
+            <a class="btn btn-ref"  href="column-auto-fit-collapse-001-ref.html">Ref</a>
+          </td>
+        </tr>
+        <tr>
+          <td><code>column-flow-tolerance-percentage-001</code></td>
+          <td><a class="spec-ref" href="https://drafts.csswg.org/css-grid-3/#placement-tolerance" target="_blank" rel="noopener">§4.2</a></td>
+          <td class="desc"><code>flow-tolerance</code> as a percentage, resolved against the grid-axis content box width</td>
+          <td class="links">
+            <a class="btn btn-test" href="column-flow-tolerance-percentage-001.html">Test</a>
+            <a class="btn btn-ref"  href="column-flow-tolerance-percentage-001-ref.html">Ref</a>
+          </td>
+        </tr>
+        <tr>
+          <td><code>column-flow-tolerance-zero-001</code></td>
+          <td><a class="spec-ref" href="https://drafts.csswg.org/css-grid-3/#placement-tolerance" target="_blank" rel="noopener">§4.2</a></td>
+          <td class="desc"><code>flow-tolerance: 0</code> forces strictly-shortest-column placement — no tie window at all</td>
+          <td class="links">
+            <a class="btn btn-test" href="column-flow-tolerance-zero-001.html">Test</a>
+            <a class="btn btn-ref"  href="column-flow-tolerance-zero-001-ref.html">Ref</a>
+          </td>
+        </tr>
+        <tr>
+          <td><code>row-flow-tolerance-infinite-001</code></td>
+          <td><a class="spec-ref" href="https://drafts.csswg.org/css-grid-3/#placement-tolerance" target="_blank" rel="noopener">§4.2</a></td>
+          <td class="desc"><code>flow-tolerance: infinite</code> on a row-axis grid-lanes container — items distribute strictly in source order regardless of row widths</td>
+          <td class="links">
+            <a class="btn btn-test" href="row-flow-tolerance-infinite-001.html">Test</a>
+            <a class="btn btn-ref"  href="row-flow-tolerance-infinite-001-ref.html">Ref</a>
+          </td>
+        </tr>
+        <tr>
+          <td><code>column-dense-packing-001</code></td>
+          <td><a class="spec-ref" href="https://drafts.csswg.org/css-grid-3/#grid-lanes-dense-packing" target="_blank" rel="noopener">§4.3</a><span class="issue-badge">ISSUE 8</span></td>
+          <td class="desc"><code>grid-auto-flow: dense</code> backfills gaps left by explicitly-placed items — only when spanned tracks have the same total used size</td>
+          <td class="links">
+            <a class="btn btn-test" href="column-dense-packing-001.html">Test</a>
+            <a class="btn btn-ref"  href="column-dense-packing-001-ref.html">Ref</a>
+          </td>
+        </tr>
+        <tr>
+          <td><code>column-rtl-placement-001</code></td>
+          <td><a class="spec-ref" href="https://drafts.csswg.org/css-grid-3/#rtl-example" target="_blank" rel="noopener">§4.4.2</a></td>
+          <td class="desc"><code>direction: rtl</code> reverses placement order in the column (grid) axis</td>
+          <td class="links">
+            <a class="btn btn-test" href="column-rtl-placement-001.html">Test</a>
+            <a class="btn btn-ref"  href="column-rtl-placement-001-ref.html">Ref</a>
+          </td>
+        </tr>
+        <tr>
+          <td><code>column-stacking-align-content-center-001</code></td>
+          <td><a class="spec-ref" href="https://drafts.csswg.org/css-grid-3/#stacking-content-alignment" target="_blank" rel="noopener">§6.3</a></td>
+          <td class="desc"><code>align-content: center</code> centers the stacking range as a whole within the container</td>
+          <td class="links">
+            <a class="btn btn-test" href="column-stacking-align-content-center-001.html">Test</a>
+            <a class="btn btn-ref"  href="column-stacking-align-content-center-001-ref.html">Ref</a>
+          </td>
+        </tr>
+        <tr>
+          <td><code>column-stacking-align-self-end-001</code></td>
+          <td><a class="spec-ref" href="https://drafts.csswg.org/css-grid-3/#stacking-self-alignment" target="_blank" rel="noopener">§6.4</a></td>
+          <td class="desc"><code>align-self: end</code> in the stacking axis — only effective on items adjacent to a gap before a spanning item</td>
+          <td class="links">
+            <a class="btn btn-test" href="column-stacking-align-self-end-001.html">Test</a>
+            <a class="btn btn-ref"  href="column-stacking-align-self-end-001-ref.html">Ref</a>
+          </td>
+        </tr>
+        <tr>
+          <td><code>column-abspos-stacking-lines-001</code></td>
+          <td><a class="spec-ref" href="https://drafts.csswg.org/css-grid-3/#abspos" target="_blank" rel="noopener">§8</a><span class="issue-badge">ISSUE 9</span></td>
+          <td class="desc">Abs-pos item with <code>grid-row: 1 / -1</code> spans the full stacking range — only lines 1 and −1 are defined in the stacking axis</td>
+          <td class="links">
+            <a class="btn btn-test" href="column-abspos-stacking-lines-001.html">Test</a>
+            <a class="btn btn-ref"  href="column-abspos-stacking-lines-001-ref.html">Ref</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+
+  <footer>
+    <a href="../index.html">← Grid Lanes Prototype</a>
+    <a href="https://drafts.csswg.org/css-grid-3/" target="_blank" rel="noopener">CSS Grid Level 3 Spec</a>
+    <a href="https://github.com/web-platform-tests/wpt/tree/master/css/css-grid/grid-lanes" target="_blank" rel="noopener">Existing WPT Tests</a>
+    <a href="README.md">README</a>
+  </footer>
+</body>
+</html>
