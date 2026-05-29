@@ -3,7 +3,7 @@
 <link rel="help" href="https://drafts.csswg.org/css-grid-3/#abspos">
 <link rel="author" title="John Jansen" href="mailto:john.jansen@microsoft.com">
 <meta charset="utf-8">
-<title>CSS Grid Test: absolute positioning in grid-lanes ignores stacking-axis placement (reference)</title>
+<title>CSS Grid Test: absolute positioning in grid-lanes stacking-axis lines (reference)</title>
 <style>
   html, body {
     color: black;
@@ -20,9 +20,8 @@
    * stacking range = 130px
    * container height = 10(pad) + 130 + 10(pad) = 150px
    *
-   * abs item: grid-column:1 places it in col1 (left=10px).
-   * grid-row is ignored, so height and width are auto (content-sized).
-   * Static position in stacking axis = top of content area = 10px.
+   * abs item: no grid-column, so spans full inline width = 100+10+100 = 210px.
+   * grid-row: 1 / -1 spans full stacking range: top=10px, height=130px.
    */
   .outer {
     position: relative;
@@ -35,11 +34,11 @@
   .item2 { position: absolute; left: 120px; top: 10px;  width: 100px; height: 60px; background: lightskyblue; padding: 4px; box-sizing: border-box; }
   .item3 { position: absolute; left: 10px;  top: 80px;  width: 100px; height: 60px; background: lightskyblue; padding: 4px; box-sizing: border-box; }
   .item4 { position: absolute; left: 120px; top: 80px;  width: 100px; height: 60px; background: lightskyblue; padding: 4px; box-sizing: border-box; }
-  .abs   { position: absolute; left: 10px;  top: 10px;  background: rgba(255,200,0,0.5); border: 2px dashed orange; box-sizing: border-box; }
+  .abs   { position: absolute; left: 10px;  top: 10px;  width: 210px; height: 130px; background: rgba(255,200,0,0.5); border: 2px dashed orange; box-sizing: border-box; }
 </style>
 <body>
-  <p>Test that an absolutely positioned item with <code>grid-column: 1</code> is placed
-  in the first column. Stacking-axis placement is ignored in grid-lanes.</p>
+  <p>Test that an absolutely positioned item with <code>grid-row: 1 / -1</code>
+  spans the full stacking range (from stacking-axis line 1 to line -1).</p>
   <div class="outer">
     <div class="item1">1</div>
     <div class="item2">2</div>
