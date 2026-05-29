@@ -38,14 +38,15 @@
   }
   .abs {
     position: absolute;
-    grid-row: 1 / -1; /* span full stacking range using stacking-axis lines 1 and -1 */
+    grid-row: 1 / -1; /* should be ignored */
+    grid-column: 1 / -1; /* span full stacking range using stacking-axis lines 1 and -1 */
     background: rgba(255, 200, 0, 0.5);
     border: 2px dashed orange;
     box-sizing: border-box;
   }
 </style>
 <body>
-  <p>Test that an absolutely positioned item with <code>grid-row: 1 / -1</code>
+  <p>Test that an absolutely positioned item with <code>grid-column: 1 / -1</code>
   spans the full stacking range (from stacking-axis line 1 to line -1).</p>
   <div class="grid">
     <div class="item">1</div>
