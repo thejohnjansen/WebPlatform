@@ -1,0 +1,6 @@
+{
+  "hints": {
+    "axe/html-has-lang": "off",
+    "meta-viewport": "off"
+  }
+}
