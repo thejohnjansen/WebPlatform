@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<link rel="help" href="https://drafts.csswg.org/css-grid-3/#stacking-content-alignment">
+<link rel="match" href="column-stacking-align-content-center-001-ref.html">
+<link rel="author" title="John Jansen" href="mailto:john.jansen@microsoft.com">
+<meta charset="utf-8">
+<title>CSS Grid Test: column grid-lanes with align-content: center in stacking axis</title>
+<style>
+  html, body {
+    color: black;
+    background-color: white;
+    font: 16px/1 monospace;
+    padding: 0;
+    margin: 0;
+  }
+  /*
+   * align-content: center in the stacking axis moves the stacking range
+   * as a whole to the center of the container.
+   */
+  .grid {
+    display: grid-lanes;
+    grid-template-columns: 100px 100px;
+    gap: 10px;
+    padding: 10px;
+    height: 300px; /* tall container so centering is visible */
+    width: 240px;
+    box-sizing: border-box;
+    border: 1px solid black;
+    align-content: center;
+    flow-tolerance: 0;
+  }
+  .item {
+    background: lightgreen;
+    padding: 4px;
+    box-sizing: border-box;
+  }
+</style>
+<body>
+  <p>Test that <code>align-content: center</code> on a column grid-lanes container
+  centers the stacking range (all items as a block) within the container.</p>
+  <div class="grid">
+    <div class="item" style="height:40px">1</div>
+    <div class="item" style="height:40px">2</div>
+    <div class="item" style="height:40px">3</div>
+    <div class="item" style="height:40px">4</div>
+  </div>
+</body>
+</html>

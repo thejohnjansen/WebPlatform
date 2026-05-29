@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<link rel="help" href="https://drafts.csswg.org/css-grid-3/#grid-lanes-dense-packing">
+<link rel="author" title="John Jansen" href="mailto:john.jansen@microsoft.com">
+<meta charset="utf-8">
+<title>CSS Grid Test: dense packing backfills compatible gaps (reference)</title>
+<style>
+  html, body {
+    color: black;
+    background-color: white;
+    font: 16px/1 monospace;
+    padding: 0;
+    margin: 0;
+  }
+  /*
+   * Reference: manually position items to match expected dense-pack result.
+   * Container: 3 cols * 80px + 2*10 gaps + 2*10 pad = 290px wide
+   *
+   * item-placed: col2, y=0, h=60px
+   * item3 (dense backfill): col1, y=0, h=60px
+   * item4 (dense backfill): col3, y=0, h=60px
+   * item-wide: all 3 cols, y=60+10=70, h=40px
+   * item5: col1, y=70+40+10=120, h=40px
+   */
+  .outer {
+    position: relative;
+    width: 290px;
+    height: 170px; /* 10 + 60+10+40+10+40 + 10 */
+    box-sizing: border-box;
+    border: 2px solid black;
+  }
+  .item-placed { position: absolute; left: 100px; top: 10px;  width: 80px; height: 60px; background: lightcoral; padding: 4px; box-sizing: border-box; }
+  .item3       { position: absolute; left: 10px;  top: 10px;  width: 80px; height: 60px; background: lightskyblue; padding: 4px; box-sizing: border-box; }
+  .item4       { position: absolute; left: 190px; top: 10px;  width: 80px; height: 60px; background: lightskyblue; padding: 4px; box-sizing: border-box; }
+  .item-wide   { position: absolute; left: 10px;  top: 80px;  width: 260px; height: 40px; background: lightgreen; padding: 4px; box-sizing: border-box; }
+  .item5       { position: absolute; left: 10px;  top: 130px; width: 80px; height: 40px; background: lightskyblue; padding: 4px; box-sizing: border-box; }
+</style>
+<body>
+  <p>Test that <code>grid-auto-flow: dense</code> backfills gaps left by
+  explicitly-placed items when a compatible auto-placed item exists.</p>
+  <div class="outer">
+    <div class="item-placed">placed(col2)</div>
+    <div class="item3">3</div>
+    <div class="item4">4</div>
+    <div class="item-wide">wide(span3)</div>
+    <div class="item5">5</div>
+  </div>
+</body>
+</html>

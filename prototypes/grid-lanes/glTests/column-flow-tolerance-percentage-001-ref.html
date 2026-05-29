@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<link rel="help" href="https://drafts.csswg.org/css-grid-3/#placement-tolerance">
+<link rel="author" title="John Jansen" href="mailto:john.jansen@microsoft.com">
+<meta charset="utf-8">
+<title>CSS Grid Test: flow-tolerance as percentage (reference)</title>
+<style>
+  html, body {
+    color: black;
+    background-color: white;
+    font: 16px/1 monospace;
+    padding: 0;
+    margin: 0;
+  }
+  /* Reference: manually place items to match the expected source-order result */
+  .outer {
+    display: inline-grid;
+    grid-template-columns: 80px 80px;
+    gap: 20px;
+    padding: 20px;
+    width: 200px;
+    box-sizing: border-box;
+    border: 1px solid black;
+    align-items: start;
+  }
+  .item {
+    background: lightskyblue;
+    padding: 4px;
+    box-sizing: border-box;
+  }
+</style>
+<body>
+  <p>Test that <code>flow-tolerance</code> accepts percentage values relative to
+  the grid-axis content box. With a 100px tolerance, items within 100px of the
+  shortest column are placed in source order.</p>
+  <!-- col1: item1(20px)+gap(20px)+item3(30px)=70px; col2: item2(100px)+gap(20px)+item4(30px)=150px -->
+  <div class="outer">
+    <div class="item" style="height:20px; grid-column:1; grid-row:1">1</div>
+    <div class="item" style="height:100px; grid-column:2; grid-row:1">2</div>
+    <div class="item" style="height:30px; grid-column:1; grid-row:2">3</div>
+    <div class="item" style="height:30px; grid-column:2; grid-row:2">4</div>
+  </div>
+</body>
+</html>

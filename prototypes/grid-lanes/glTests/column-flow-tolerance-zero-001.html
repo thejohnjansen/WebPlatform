@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<link rel="help" href="https://drafts.csswg.org/css-grid-3/#placement-tolerance">
+<link rel="match" href="column-flow-tolerance-zero-001-ref.html">
+<link rel="author" title="John Jansen" href="mailto:john.jansen@microsoft.com">
+<meta charset="utf-8">
+<title>CSS Grid Test: flow-tolerance: 0 places items in strictly shortest column</title>
+<style>
+  html, body {
+    color: black;
+    background-color: white;
+    font: 16px/1 monospace;
+    padding: 0;
+    margin: 0;
+  }
+  /*
+   * With flow-tolerance:0, even a 1px difference means the shorter column wins.
+   * 3 columns:
+   *   item1(50px)->col1, item2(40px)->col2, item3(30px)->col3
+   *   item4: col3 is shortest(30px) -> col3. col3=30+10+40=80.
+   *   item5: col2 is shortest(40px) -> col2. col2=40+10+40=90.
+   *   item6: col1 is shortest(50px) -> col1. col1=50+10+30=90.
+   * All items go to strictly-shortest column, not source order.
+   */
+  .grid {
+    display: inline-grid-lanes;
+    grid-template-columns: repeat(3, 80px);
+    gap: 10px;
+    padding: 10px;
+    flow-tolerance: 0;
+    border: 1px solid black;
+    box-sizing: border-box;
+  }
+  .item {
+    background: peachpuff;
+    padding: 4px;
+    box-sizing: border-box;
+    width: 100%;
+  }
+</style>
+<body>
+  <p>Test that <code>flow-tolerance: 0</code> places each item into the strictly
+  shortest column, ignoring source order when columns differ by any amount.</p>
+  <div class="grid">
+    <div class="item" style="height:50px">1</div>
+    <div class="item" style="height:40px">2</div>
+    <div class="item" style="height:30px">3</div>
+    <div class="item" style="height:40px">4</div>
+    <div class="item" style="height:40px">5</div>
+    <div class="item" style="height:30px">6</div>
+  </div>
+</body>
+</html>

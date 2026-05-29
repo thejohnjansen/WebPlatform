@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<link rel="help" href="https://drafts.csswg.org/css-grid-3/#stacking-self-alignment">
+<link rel="match" href="column-stacking-align-self-end-001-ref.html">
+<link rel="author" title="John Jansen" href="mailto:john.jansen@microsoft.com">
+<meta charset="utf-8">
+<title>CSS Grid Test: align-self end in stacking axis on item adjacent to gap before spanning item</title>
+<style>
+  html, body {
+    color: black;
+    background-color: white;
+    font: 16px/1 monospace;
+    padding: 0;
+    margin: 0;
+  }
+  /*
+   * Spec §6.4: align-self only applies to items adjacent to a gap,
+   * i.e., placed immediately before a spanning item or as the last item.
+   *
+   * Layout:
+   *   Col1: item1(30px)
+   *   Col2: item2(80px)
+   *   item3: span 2 columns — placed after both, below max(col1,col2)
+   *
+   * item1 is adjacent to the gap above item3 in col1 and should respond
+   * to align-self: end (aligning to the bottom of its alignment container,
+   * which stretches from item1's top to item3's top in col1).
+   */
+  .grid {
+    display: grid-lanes;
+    grid-template-columns: 100px 100px;
+    gap: 10px;
+    padding: 10px;
+    width: 240px;
+    box-sizing: border-box;
+    border: 1px solid black;
+    flow-tolerance: 0;
+  }
+  .item {
+    background: lightcoral;
+    box-sizing: border-box;
+    padding: 4px;
+  }
+  .item1 {
+    align-self: end;
+    height: 30px;
+  }
+  .item2 {
+    height: 80px;
+  }
+  .item-wide {
+    grid-column: span 2;
+    background: lightyellow;
+    height: 30px;
+  }
+</style>
+<body>
+  <p>Test that <code>align-self: end</code> in the stacking axis applies to an item
+  adjacent to a gap created by a spanning item.</p>
+  <div class="grid">
+    <div class="item item1">1</div>
+    <div class="item item2">2</div>
+    <div class="item item-wide">wide</div>
+  </div>
+</body>
+</html>

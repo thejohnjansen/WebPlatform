@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<link rel="help" href="https://drafts.csswg.org/css-grid-3/#rtl-example">
+<link rel="match" href="column-rtl-placement-001-ref.html">
+<link rel="author" title="John Jansen" href="mailto:john.jansen@microsoft.com">
+<meta charset="utf-8">
+<title>CSS Grid Test: column grid-lanes with direction: rtl places items right-to-left</title>
+<style>
+  html, body {
+    color: black;
+    background-color: white;
+    font: 16px/1 monospace;
+    padding: 0;
+    margin: 0;
+  }
+  /*
+   * Spec §4.4.2: with direction:rtl in the grid (column) axis,
+   * items are placed right-to-left.
+   * flow-tolerance:0 so shortest-column wins strictly.
+   * Items 1 and 2 are equal height — both go to col1 and col2 resp. (right-to-left).
+   * Item 3 is taller, goes to the shorter column (col2 after items 1+2),
+   * but column order is reversed from ltr.
+   */
+  .grid {
+    display: inline-grid-lanes;
+    direction: rtl;
+    grid-template-columns: 80px 80px;
+    gap: 10px;
+    padding: 10px;
+    flow-tolerance: 0;
+    border: 1px solid black;
+    box-sizing: border-box;
+  }
+  .item {
+    background: lightpink;
+    padding: 4px;
+    text-align: center;
+    box-sizing: border-box;
+  }
+</style>
+<body>
+  <p>Test that <code>direction: rtl</code> on a column grid-lanes container
+  places items from right to left.</p>
+  <div class="grid">
+    <div class="item" style="height:40px">1</div>
+    <div class="item" style="height:70px">2</div>
+    <div class="item" style="height:30px">3</div>
+    <div class="item" style="height:30px">4</div>
+  </div>
+</body>
+</html>

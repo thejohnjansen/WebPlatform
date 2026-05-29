@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<link rel="help" href="https://drafts.csswg.org/css-grid-3/#grid-lanes-dense-packing">
+<link rel="match" href="column-dense-packing-001-ref.html">
+<link rel="author" title="John Jansen" href="mailto:john.jansen@microsoft.com">
+<meta charset="utf-8">
+<title>CSS Grid Test: dense packing backfills compatible gaps in grid-lanes</title>
+<style>
+  html, body {
+    color: black;
+    background-color: white;
+    font: 16px/1 monospace;
+    padding: 0;
+    margin: 0;
+  }
+  /*
+   * Spec §4.3: dense packing allows backtracking into empty spaces left by
+   * spanning items, but only if the spanned tracks have the same total used size.
+   *
+   * Layout: 3 equal 80px columns, flow-tolerance:0
+   *   item1: col1, 40px tall
+   *   item2: span 3, 40px tall → placed at y=0, all cols advance to 40px
+   *   item3: 1 col, 30px tall → without dense: col1 (shortest after item2 at 40px)
+   *                             with dense: should backfill the col1 gap before item2
+   *                             (but col1 was not empty — item1 was there already)
+   *
+   * Better case: explicit item leaves a gap
+   *   item1: explicitly placed col2, 40px
+   *   item2: auto-placed, span 3, 40px → placed at y=40, leaves gap at col1 y=0..40, col3 y=0..40
+   *   item3: auto-placed, 1 col, 40px → with dense, backfills col1 y=0 (same track size 80px)
+   */
+  .grid {
+    display: grid-lanes;
+    grid-template-columns: 80px 80px 80px;
+    gap: 10px;
+    padding: 10px;
+    width: 290px;
+    box-sizing: border-box;
+    border: 2px solid black;
+    grid-auto-flow: dense;
+    flow-tolerance: 0;
+  }
+  .item {
+    background: lightskyblue;
+    padding: 4px;
+    box-sizing: border-box;
+  }
+  .item-wide {
+    grid-column: span 3;
+    background: lightgreen;
+  }
+  .item-placed {
+    grid-column: 2;
+    background: lightcoral;
+  }
+</style>
+<body>
+  <p>Test that <code>grid-auto-flow: dense</code> backfills gaps left by
+  explicitly-placed items when a compatible auto-placed item exists.</p>
+  <div class="grid">
+    <!-- item-placed goes to col2; leaves gap in col1 and col3 -->
+    <div class="item item-placed" style="height:60px">placed(col2)</div>
+    <!-- wide spans all 3 cols; placed at y=60 -->
+    <div class="item item-wide" style="height:40px">wide(span3)</div>
+    <!-- with dense: item3 should backfill col1 y=0 (same 80px track size) -->
+    <div class="item" style="height:60px">3</div>
+    <!-- item4 backfills col3 -->
+    <div class="item" style="height:60px">4</div>
+    <!-- item5 follows normally after wide -->
+    <div class="item" style="height:40px">5</div>
+  </div>
+</body>
+</html>

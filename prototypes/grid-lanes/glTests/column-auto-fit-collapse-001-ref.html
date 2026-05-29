@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<link rel="help" href="https://drafts.csswg.org/css-grid-3/#repeat-auto-fit">
+<link rel="author" title="John Jansen" href="mailto:john.jansen@microsoft.com">
+<meta charset="utf-8">
+<title>CSS Grid Test: auto-fit collapses empty tracks in grid-lanes (reference)</title>
+<style>
+  html, body {
+    color: black;
+    background-color: white;
+    font: 16px/1 monospace;
+    padding: 0;
+    margin: 0;
+  }
+  /* Reference for auto-fit: only 2 tracks visible, container shrinks to their content width */
+  .grid-autofit {
+    display: inline-grid;
+    grid-template-columns: 80px 80px;
+    gap: 10px;
+    padding: 10px;
+    border: 2px solid blue;
+    align-items: start;
+  }
+  /* Reference for auto-fill: 4 tracks remain (with 2 empty), container full width */
+  .grid-autofill {
+    display: inline-grid;
+    grid-template-columns: 80px 80px 80px 80px;
+    gap: 10px;
+    padding: 10px;
+    width: 380px;
+    box-sizing: border-box;
+    border: 2px solid red;
+    margin-top: 20px;
+    align-items: start;
+  }
+  .item {
+    background: lightgoldenrodyellow;
+    height: 40px;
+    box-sizing: border-box;
+    padding: 4px;
+  }
+</style>
+<body>
+  <p>Test that <code>repeat(auto-fit)</code> collapses empty tracks while
+  <code>repeat(auto-fill)</code> keeps them. Both containers have 2 items
+  in a 380px container that can fit 4 tracks.</p>
+  <div class="grid-autofit">
+    <div class="item">1</div>
+    <div class="item">2</div>
+  </div>
+  <div class="grid-autofill">
+    <div class="item" style="grid-column:1">1</div>
+    <div class="item" style="grid-column:2">2</div>
+  </div>
+</body>
+</html>

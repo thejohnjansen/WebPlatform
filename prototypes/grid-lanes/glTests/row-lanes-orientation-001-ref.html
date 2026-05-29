@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<link rel="help" href="https://drafts.csswg.org/css-grid-3/#grid-lanes-orientation">
+<link rel="author" title="John Jansen" href="mailto:john.jansen@microsoft.com">
+<meta charset="utf-8">
+<title>CSS Grid Test: row lanes orientation (reference)</title>
+<style>
+  html, body {
+    color: black;
+    background-color: white;
+    font: 16px/1 monospace;
+    padding: 0;
+    margin: 0;
+  }
+  /*
+   * Reference: manually place items to match expected row-lanes result.
+   * flow-tolerance:0 — each item goes to the shortest row.
+   * items placed in order of source, shortest-row first:
+   *   item1(40px)->row1, item2(100px)->row2, item3(30px)->row3
+   *   item4(30px)->row1(40px is shortest after item3 goes to row3), 
+   *     Actually: row1=40, row2=100, row3=30 => item4->row3(30+gap+30=70)? No, row3 is shortest.
+   *     After item3(30px) placed in row3, running positions: row1=40, row2=100, row3=30+10+30=70? 
+   *     Wait: after item1 row1=40, item2 row2=100, item3 row3=30.
+   *     item4: shortest row is row3(30), item4(30px) -> row3. row3 running = 30+10+30=70.
+   *     item5(60px): shortest is row1(40). -> row1. row1 = 40+10+60=110.
+   *     item6(20px): shortest is row3(70) vs row2(100) vs row1(110)? row3=70 is shortest. -> row3. row3=70+10+20=100.
+   *
+   * So layout (each row stacks horizontally):
+   *   row1: item1(40), item5(60)
+   *   row2: item2(100)
+   *   row3: item3(30), item4(30), item6(20)
+   */
+  .outer {
+    position: relative;
+    height: 290px; /* 10 + 80+10+80+10+80 + 10 */
+    width: 400px;
+    box-sizing: border-box;
+    border: 2px solid black;
+  }
+  /* row y offsets: row1=10, row2=100, row3=190 (10+80+10=100, 100+80+10=190) */
+  /* items stack within their row from x=10 */
+  .i1 { position: absolute; top: 10px;  left: 10px;  width: 40px;  height: 80px; background: plum; padding: 4px; box-sizing: border-box; }
+  .i2 { position: absolute; top: 100px; left: 10px;  width: 100px; height: 80px; background: plum; padding: 4px; box-sizing: border-box; }
+  .i3 { position: absolute; top: 190px; left: 10px;  width: 30px;  height: 80px; background: plum; padding: 4px; box-sizing: border-box; }
+  /* item4 -> row3 (shortest at 30): x = 10+30+10=50 */
+  .i4 { position: absolute; top: 190px; left: 50px;  width: 30px;  height: 80px; background: plum; padding: 4px; box-sizing: border-box; }
+  /* item5 -> row1 (shortest at 40): x = 10+40+10=60 */
+  .i5 { position: absolute; top: 10px;  left: 60px;  width: 60px;  height: 80px; background: plum; padding: 4px; box-sizing: border-box; }
+  /* item6 -> row3 (shortest at 70): x = 10+30+10+30+10=90 */
+  .i6 { position: absolute; top: 190px; left: 90px;  width: 20px;  height: 80px; background: plum; padding: 4px; box-sizing: border-box; }
+</style>
+<body>
+  <p>Test that setting <code>grid-template-rows</code> (with <code>grid-template-columns</code>
+  at its initial value of <code>none</code>) establishes a row-axis grid lanes layout
+  (brick wall style).</p>
+  <div class="outer">
+    <div class="i1">1</div>
+    <div class="i2">2</div>
+    <div class="i3">3</div>
+    <div class="i4">4</div>
+    <div class="i5">5</div>
+    <div class="i6">6</div>
+  </div>
+</body>
+</html>

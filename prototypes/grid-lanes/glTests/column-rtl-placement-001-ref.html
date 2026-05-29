@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<link rel="help" href="https://drafts.csswg.org/css-grid-3/#rtl-example">
+<link rel="author" title="John Jansen" href="mailto:john.jansen@microsoft.com">
+<meta charset="utf-8">
+<title>CSS Grid Test: column grid-lanes with direction: rtl (reference)</title>
+<style>
+  html, body {
+    color: black;
+    background-color: white;
+    font: 16px/1 monospace;
+    padding: 0;
+    margin: 0;
+  }
+  /*
+   * Reference: explicit grid placement for rtl 2-column grid-lanes.
+   * With direction:rtl and flow-tolerance:0:
+   *   item1(40px) -> rightmost col (col2 visually)
+   *   item2(70px) -> next col (col1 visually)
+   *   item3(30px) -> shortest col = col2 visually (40px) < col1 (70px)
+   *   item4(30px) -> col2 visually (40+gap+30=80) vs col1(70): shortest now col1
+   */
+  .outer {
+    display: inline-grid;
+    direction: rtl;
+    grid-template-columns: 80px 80px;
+    grid-template-rows: auto auto;
+    gap: 10px;
+    padding: 10px;
+    border: 1px solid black;
+    box-sizing: border-box;
+    align-items: start;
+  }
+  .item {
+    background: lightpink;
+    padding: 4px;
+    text-align: center;
+    box-sizing: border-box;
+  }
+</style>
+<body>
+  <p>Test that <code>direction: rtl</code> on a column grid-lanes container
+  places items from right to left.</p>
+  <div class="outer">
+    <!-- In rtl 2-col grid, col1 is the right column, col2 is the left column visually.
+         item1->col1(right), item2->col2(left), item3->col1(right,shorter), item4->col2(left) -->
+    <div class="item" style="height:40px; grid-column:1; grid-row:1">1</div>
+    <div class="item" style="height:70px; grid-column:2; grid-row:1">2</div>
+    <div class="item" style="height:30px; grid-column:1; grid-row:2">3</div>
+    <div class="item" style="height:30px; grid-column:2; grid-row:2">4</div>
+  </div>
+</body>
+</html>
