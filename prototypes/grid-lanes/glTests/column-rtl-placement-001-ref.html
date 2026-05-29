@@ -13,23 +13,28 @@
     margin: 0;
   }
   /*
-   * Reference: explicit grid placement for rtl 2-column grid-lanes.
+   * Reference: two independently-packed columns in RTL order.
    * With direction:rtl and flow-tolerance:0:
-   *   item1(40px) -> rightmost col (col2 visually)
-   *   item2(70px) -> next col (col1 visually)
-   *   item3(30px) -> shortest col = col2 visually (40px) < col1 (70px)
-   *   item4(30px) -> col2 visually (40+gap+30=80) vs col1(70): shortest now col1
+   *   item1(40px) -> col1 (inline-start = rightmost in RTL), col1=40px
+   *   item2(70px) -> col2 (shorter at 0px),                  col2=70px
+   *   item3(30px) -> col1 (shorter: 40px < 70px),            col1=40+10+30=80px
+   *   item4(30px) -> col2 (shorter: 70px < 80px),            col2=70+10+30=110px
+   * Each column packs independently; col1 right, col2 left.
    */
   .outer {
-    display: inline-grid;
-    direction: rtl;
-    grid-template-columns: 80px 80px;
-    grid-template-rows: auto auto;
+    display: inline-flex;
+    flex-direction: row-reverse;
+    align-items: flex-start;
     gap: 10px;
     padding: 10px;
     border: 1px solid black;
     box-sizing: border-box;
-    align-items: start;
+  }
+  .col {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 80px;
   }
   .item {
     background: lightpink;
@@ -42,12 +47,15 @@
   <p>Test that <code>direction: rtl</code> on a column grid-lanes container
   places items from right to left.</p>
   <div class="outer">
-    <!-- In rtl 2-col grid, col1 is the right column, col2 is the left column visually.
-         item1->col1(right), item2->col2(left), item3->col1(right,shorter), item4->col2(left) -->
-    <div class="item" style="height:40px; grid-column:1; grid-row:1">1</div>
-    <div class="item" style="height:70px; grid-column:2; grid-row:1">2</div>
-    <div class="item" style="height:30px; grid-column:1; grid-row:2">3</div>
-    <div class="item" style="height:30px; grid-column:2; grid-row:2">4</div>
+    <!-- row-reverse: first child in DOM appears on the right (col1), second on the left (col2) -->
+    <div class="col">
+      <div class="item" style="height:40px">1</div>
+      <div class="item" style="height:30px">3</div>
+    </div>
+    <div class="col">
+      <div class="item" style="height:70px">2</div>
+      <div class="item" style="height:30px">4</div>
+    </div>
   </div>
 </body>
 </html>
