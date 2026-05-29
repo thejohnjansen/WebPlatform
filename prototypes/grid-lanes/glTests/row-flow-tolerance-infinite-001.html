@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<link rel="help" href="https://drafts.csswg.org/css-grid-3/#placement-tolerance">
+<link rel="match" href="row-flow-tolerance-infinite-001-ref.html">
+<link rel="author" title="John Jansen" href="mailto:john.jansen@microsoft.com">
+<meta charset="utf-8">
+<title>CSS Grid Test: row grid-lanes with flow-tolerance: infinite places items strictly in source order</title>
+<style>
+  html, body {
+    color: black;
+    background-color: white;
+    font: 16px/1 monospace;
+    padding: 0;
+    margin: 0;
+  }
+  /*
+   * Row grid-lanes: grid-template-rows defines the grid axis (rows).
+   * flow-tolerance: infinite => items fill rows strictly left-to-right in source order,
+   * regardless of column heights.
+   * Row 1 has width=10px, row 2 has width=100px — with infinite tolerance,
+   * item 3 still goes to row 1 (next in source order).
+   */
+  .grid {
+    display: grid-lanes;
+    grid-template-rows: 60px 60px;
+    gap: 10px;
+    height: 170px; /* fits 2 rows + gap */
+    flow-tolerance: infinite;
+    border: 1px solid black;
+    padding: 5px;
+    width: 300px;
+    box-sizing: border-box;
+  }
+  .item {
+    background: lightcoral;
+    padding: 4px;
+    box-sizing: border-box;
+  }
+</style>
+<body>
+  <p>Test that row grid-lanes with <code>flow-tolerance: infinite</code> distributes
+  items strictly in row-source order, ignoring row lengths.</p>
+  <div class="grid">
+    <div class="item" style="width:10px">1</div>
+    <div class="item" style="width:100px">2</div>
+    <div class="item" style="width:20px">3</div>
+    <div class="item" style="width:40px">4</div>
+  </div>
+</body>
+</html>

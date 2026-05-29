@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<link rel="help" href="https://drafts.csswg.org/css-grid-3/#repeat-auto-fit">
+<link rel="match" href="column-auto-fit-collapse-001-ref.html">
+<link rel="author" title="John Jansen" href="mailto:john.jansen@microsoft.com">
+<meta charset="utf-8">
+<title>CSS Grid Test: auto-fit collapses empty tracks in grid-lanes</title>
+<style>
+  html, body {
+    color: black;
+    background-color: white;
+    font: 16px/1 monospace;
+    padding: 0;
+    margin: 0;
+  }
+  /*
+   * Spec §3.3.1: auto-fit collapses tracks that are considered empty.
+   * With 2 items, only 2 tracks are occupied; extra auto-fit tracks collapse.
+   * Width is wide enough for 4 tracks but only 2 items exist.
+   * auto-fit should produce only 2 visible tracks (no phantom gap from empty ones).
+   */
+  .grid-autofit {
+    display: inline-grid-lanes;
+    grid-template-columns: repeat(auto-fit, 80px);
+    gap: 10px;
+    padding: 10px;
+    width: 380px; /* enough for 4 tracks: 4*80 + 3*10 + 2*10 = 370px */
+    box-sizing: border-box;
+    border: 2px solid blue;
+  }
+  .grid-autofill {
+    display: inline-grid-lanes;
+    grid-template-columns: repeat(auto-fill, 80px);
+    gap: 10px;
+    padding: 10px;
+    width: 380px;
+    box-sizing: border-box;
+    border: 2px solid red;
+    margin-top: 20px;
+  }
+  .item {
+    background: lightgoldenrodyellow;
+    height: 40px;
+    box-sizing: border-box;
+    padding: 4px;
+  }
+</style>
+<body>
+  <p>Test that <code>repeat(auto-fit)</code> collapses empty tracks while
+  <code>repeat(auto-fill)</code> keeps them. Both containers have 2 items
+  in a 380px container that can fit 4 tracks.</p>
+  <div class="grid-autofit">
+    <div class="item">1</div>
+    <div class="item">2</div>
+  </div>
+  <div class="grid-autofill">
+    <div class="item">1</div>
+    <div class="item">2</div>
+  </div>
+</body>
+</html>

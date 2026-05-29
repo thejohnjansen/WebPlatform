@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<link rel="help" href="https://drafts.csswg.org/css-grid-3/#abspos">
+<link rel="match" href="column-abspos-stacking-lines-001-ref.html">
+<link rel="author" title="John Jansen" href="mailto:john.jansen@microsoft.com">
+<meta charset="utf-8">
+<title>CSS Grid Test: absolute positioning in grid-lanes uses stacking-axis lines 1 and -1</title>
+<style>
+  html, body {
+    color: black;
+    background-color: white;
+    font: 16px/1 monospace;
+    padding: 0;
+    margin: 0;
+  }
+  /*
+   * Spec §8: in the stacking axis, only line 1 (start of stacking range) and
+   * line -1 / line 2 (end of stacking range) are available for abs-pos placement.
+   *
+   * An absolutely positioned child with grid-row: 1 / -1 should stretch the
+   * full height of the stacking range.
+   */
+  .grid {
+    position: relative;
+    display: grid-lanes;
+    grid-template-columns: 100px 100px;
+    gap: 10px;
+    padding: 10px;
+    width: 240px;
+    box-sizing: border-box;
+    border: 2px solid black;
+    flow-tolerance: 0;
+  }
+  .item {
+    background: lightskyblue;
+    height: 60px;
+    padding: 4px;
+    box-sizing: border-box;
+  }
+  .abs {
+    position: absolute;
+    grid-column: 1; /* place in first column grid-axis track */
+    grid-row: 1 / -1; /* span full stacking range */
+    background: rgba(255, 200, 0, 0.5);
+    border: 2px dashed orange;
+    box-sizing: border-box;
+  }
+</style>
+<body>
+  <p>Test that an absolutely positioned item with <code>grid-row: 1 / -1</code>
+  spans the full stacking range (from line 1 to line -1) of the grid-lanes container.</p>
+  <div class="grid">
+    <div class="item">1</div>
+    <div class="item">2</div>
+    <div class="item">3</div>
+    <div class="item">4</div>
+    <div class="abs">abs</div>
+  </div>
+</body>
+</html>

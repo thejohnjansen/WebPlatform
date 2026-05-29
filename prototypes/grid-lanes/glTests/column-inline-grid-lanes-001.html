@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<link rel="help" href="https://drafts.csswg.org/css-grid-3/#grid-lanes-containers">
+<link rel="match" href="column-inline-grid-lanes-001-ref.html">
+<link rel="author" title="John Jansen" href="mailto:john.jansen@microsoft.com">
+<meta charset="utf-8">
+<title>CSS Grid Test: inline-grid-lanes generates inline-level container</title>
+<style>
+  html, body {
+    color: black;
+    background-color: white;
+    font: 20px/1 monospace;
+    padding: 0;
+    margin: 0;
+  }
+  .container {
+    display: inline-grid-lanes;
+    grid-template-columns: 80px 80px;
+    gap: 10px;
+    border: 2px solid black;
+    padding: 4px;
+    vertical-align: top;
+  }
+  .item {
+    background: lightskyblue;
+    height: 40px;
+    box-sizing: border-box;
+  }
+  .item.tall {
+    height: 70px;
+  }
+</style>
+<body>
+  <p>Test that <code>display: inline-grid-lanes</code> generates an inline-level
+  box. Two inline-grid-lanes containers should sit side-by-side on the same line.</p>
+  <div class="container">
+    <div class="item"></div>
+    <div class="item tall"></div>
+    <div class="item tall"></div>
+    <div class="item"></div>
+  </div>
+  <div class="container">
+    <div class="item tall"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item tall"></div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<link rel="help" href="https://drafts.csswg.org/css-grid-3/#grid-lanes-orientation">
+<link rel="match" href="row-lanes-orientation-001-ref.html">
+<link rel="author" title="John Jansen" href="mailto:john.jansen@microsoft.com">
+<meta charset="utf-8">
+<title>CSS Grid Test: row lanes orientation — grid-template-rows sets grid axis</title>
+<style>
+  html, body {
+    color: black;
+    background-color: white;
+    font: 16px/1 monospace;
+    padding: 0;
+    margin: 0;
+  }
+  /*
+   * Spec §2.3: when grid-template-columns is none and grid-template-rows is not none,
+   * the block axis (rows) is the grid axis, creating "brick wall" style layout.
+   * Items fill rows, stacking horizontally.
+   * flow-tolerance:0 so shortest row wins strictly.
+   */
+  .grid {
+    display: grid-lanes;
+    grid-template-rows: 80px 80px 80px;
+    gap: 10px;
+    padding: 10px;
+    height: 290px; /* 3*80 + 2*10 + 2*10 */
+    width: 400px;
+    box-sizing: border-box;
+    border: 2px solid black;
+    flow-tolerance: 0;
+  }
+  .item {
+    background: plum;
+    height: 100%;
+    padding: 4px;
+    box-sizing: border-box;
+  }
+</style>
+<body>
+  <p>Test that setting <code>grid-template-rows</code> (with <code>grid-template-columns</code>
+  at its initial value of <code>none</code>) establishes a row-axis grid lanes layout
+  (brick wall style).</p>
+  <div class="grid">
+    <div class="item" style="width:40px">1</div>
+    <div class="item" style="width:100px">2</div>
+    <div class="item" style="width:30px">3</div>
+    <div class="item" style="width:30px">4</div>
+    <div class="item" style="width:60px">5</div>
+    <div class="item" style="width:20px">6</div>
+  </div>
+</body>
+</html>

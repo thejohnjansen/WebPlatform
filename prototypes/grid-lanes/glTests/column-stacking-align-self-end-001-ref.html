@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<link rel="help" href="https://drafts.csswg.org/css-grid-3/#stacking-self-alignment">
+<link rel="author" title="John Jansen" href="mailto:john.jansen@microsoft.com">
+<meta charset="utf-8">
+<title>CSS Grid Test: align-self end in stacking axis (reference)</title>
+<style>
+  html, body {
+    color: black;
+    background-color: white;
+    font: 16px/1 monospace;
+    padding: 0;
+    margin: 0;
+  }
+  /*
+   * Reference: use absolute positioning to manually reproduce the expected layout.
+   *
+   * Container dimensions:
+   *   padding: 10px; col-gap: 10px; col-width: 100px each
+   *   total width: 240px
+   *
+   * item2 is 80px tall => sets the stacking position for item-wide.
+   * item-wide top = 10px(pad) + 80px(item2) + 10px(gap) = 100px
+   *
+   * item1 alignment container: from 10px(pad) to 100px(top of wide) = 90px tall.
+   * item1 height=30px; align-self:end => item1 top = 10px(pad) + (90px-30px) = 70px.
+   */
+  .outer {
+    position: relative;
+    width: 240px;
+    height: 150px; /* 10px pad + 80px item2 + 10px gap + 30px wide + 10px pad */
+    box-sizing: border-box;
+    border: 1px solid black;
+  }
+  .item1 {
+    position: absolute;
+    left: 10px;
+    top: 70px;  /* end-aligned in 90px container: 10 + 90 - 30 = 70 */
+    width: 100px;
+    height: 30px;
+    background: lightcoral;
+    box-sizing: border-box;
+    padding: 4px;
+  }
+  .item2 {
+    position: absolute;
+    left: 120px; /* 10px pad + 100px col1 + 10px gap */
+    top: 10px;
+    width: 100px;
+    height: 80px;
+    background: lightcoral;
+    box-sizing: border-box;
+    padding: 4px;
+  }
+  .item-wide {
+    position: absolute;
+    left: 10px;
+    top: 100px; /* 10 + 80 + 10 */
+    width: 210px; /* 100 + 10 + 100 */
+    height: 30px;
+    background: lightyellow;
+    box-sizing: border-box;
+    padding: 4px;
+  }
+</style>
+<body>
+  <p>Test that <code>align-self: end</code> in the stacking axis applies to an item
+  adjacent to a gap created by a spanning item.</p>
+  <div class="outer">
+    <div class="item1">1</div>
+    <div class="item2">2</div>
+    <div class="item-wide">wide</div>
+  </div>
+</body>
+</html>
