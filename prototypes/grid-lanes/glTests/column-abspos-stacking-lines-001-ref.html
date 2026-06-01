@@ -17,10 +17,10 @@
    * 4 items, 2 cols, flow-tolerance:0, each 60px high.
    * col1: item1(60)+gap(10)+item3(60) = 130px stacking height
    * col2: item2(60)+gap(10)+item4(60) = 130px stacking height
-   * stacking range = 130px
    * container height = 10(pad) + 130 + 10(pad) = 150px
    *
-   * abs item: left edge = col1 start = 10px; width = 100px; top=10px; height=130px
+   * abs item: no grid-column, so width is auto (content-sized).
+   * grid-row: 1 / -1 spans full stacking range: top=10px, height=130px.
    */
   .outer {
     position: relative;
@@ -33,11 +33,11 @@
   .item2 { position: absolute; left: 120px; top: 10px;  width: 100px; height: 60px; background: lightskyblue; padding: 4px; box-sizing: border-box; }
   .item3 { position: absolute; left: 10px;  top: 80px;  width: 100px; height: 60px; background: lightskyblue; padding: 4px; box-sizing: border-box; }
   .item4 { position: absolute; left: 120px; top: 80px;  width: 100px; height: 60px; background: lightskyblue; padding: 4px; box-sizing: border-box; }
-  .abs   { position: absolute; left: 10px;  top: 10px;  width: 100px; height: 130px; background: rgba(255,200,0,0.5); border: 2px dashed orange; box-sizing: border-box; }
+  .abs   { position: absolute; left: 10px;  top: 10px;  background: rgba(255,200,0,0.5); border: 2px dashed orange; box-sizing: border-box; }
 </style>
 <body>
-  <p>Test that an absolutely positioned item with <code>grid-row: 1 / -1</code>
-  spans the full stacking range (from line 1 to line -1) of the grid-lanes container.</p>
+  <p>Test that an absolutely positioned item with <code>grid-row: 1 / -1</code> is ignored and 
+    <code>grid-column: 1 / -1</code> spans the full stacking range (from stacking-axis line 1 to line -1).</p>
   <div class="outer">
     <div class="item1">1</div>
     <div class="item2">2</div>

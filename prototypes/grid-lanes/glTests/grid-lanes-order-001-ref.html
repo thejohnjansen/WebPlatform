@@ -1,0 +1,52 @@
+
+<!DOCTYPE HTML>
+<!--
+     Any copyright is dedicated to the Public Domain.
+     http://creativecommons.org/publicdomain/zero/1.0/
+-->
+<html><head>
+  <meta charset="utf-8">
+  <title>Reference: Grid Lanes layout using `order`</title>
+  <link rel="author" title="Mats Palmgren" href="mailto:mats@mozilla.com">
+  <style>
+    html,body {
+      color:black; background-color:white; font:25px/1 monospace; padding:0; margin:0;
+    }
+
+    grid {
+      display: inline-grid;
+      gap: 10px 20px;
+      grid-template-columns:  repeat(3,auto);
+
+      padding: 2px;
+    }
+
+    item {
+      background-color: #444;
+      color: #fff;
+      padding: 20px;
+      margin: 3px;
+      border: 5px solid blue;
+    }
+
+    flex {
+      display: flex;
+      flex-direction: column;
+      height: fit-content;
+    }
+  </style>
+</head>
+<body style="padding: 5px;">
+
+<grid style="border: 1px solid;">
+  <item style="height: fit-content;">1</item>
+  <flex style="gap: 10px;">
+    <item style="height: fit-content; width: fit-content;">4</item>
+    <item style="transform: translateX(1px); width: calc(200% - 36px);">5</item>
+  </flex>
+  <item style="height: fit-content">2</item>
+</grid>
+
+<div style="border:1px solid; width:300px; height:100px; padding:10px;">
+    <div style="transform: translateX(-10px); background-color: #444; color: #fff; padding: 20px; margin: 3px; border: 5px solid blue; width: fit-content;">4</div>
+</div>
