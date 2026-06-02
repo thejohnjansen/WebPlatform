@@ -19,7 +19,9 @@ html,body {
 grid {
   display: inline grid-lanes;
   gap: 10px 20px;
-  grid-template-columns:  repeat(3,auto);
+  grid-template-columns:  repeat(4,auto);
+  color: #444;
+  border: 1px solid;
   padding: 2px;
 }
 
@@ -32,13 +34,13 @@ item {
 }
 </style>
 </head>
-<body style="padding: 5px;">
+<body>
 
-<grid style="border: 1px solid;">
+<grid>
   <item>1</item>
   <item style="order:1">2</item>
-
-  <item>4</item>
+  <item style="order:2">3</item>
+  <item style="margin-top:10px">4</item>
   <item style="order:1; grid-column:span 2">5</item>
-
+  <item>6</item>
 </grid>
