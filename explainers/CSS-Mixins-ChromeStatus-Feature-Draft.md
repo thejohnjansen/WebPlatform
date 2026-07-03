@@ -11,36 +11,7 @@ CSS mixins (@mixin / @apply)
 
 ## 2. Summary
 ```
-CSS mixins let authors define a reusable, parameterized block of CSS declarations (and nested rules)
-once with the @mixin rule, then insert that block into any style rule with @apply. Where custom
-properties reuse a single value and custom functions (@function) return a value, a mixin expands into
-whole declarations - the CSS equivalent of a Sass/Less mixin, but native, cascade-aware, and able to
-respond to client-side @media, @container, and @supports conditions.
-
-@mixin --center {
-  display: grid;
-  place-content: center;
-}
-
-.card {
-  @apply --center;
-  /* expands to:
-     display: grid;
-     place-content: center; */
-}
-
-Mixins accept named, optionally typed, optionally defaulted parameters, so a single definition can
-generate many variations at the call site:
-
-@mixin --button(--face: teal, --radius: 3px) {
-  background: var(--face);
-  border-radius: var(--radius);
-  color: color-mix(in lch, white 85%, var(--face));
-  padding: 0.25lh 2ch;
-}
-
-button.primary { @apply --button(rebeccaPurple); }
-button.danger  { @apply --button(maroon, 6px); }
+Defines a reusable, parameterized block of style declarations and nested rules with the @mixin rule, then expands it into a style rule with @apply as if those declarations had been written inline. The mixin body puts the declarations to emit inside an @result block, while any local custom properties used to compute them stay private and never reach the element; parameters can be typed and given defaults, and @result can wrap output in conditional rules such as @supports and @media. This lets authors package consistent patterns - component styles, effects like gradient text, responsive shorthands - once and reuse them across a stylesheet without a CSS pre-processor.
 ```
 
 ---
@@ -112,9 +83,7 @@ https://github.com/w3c/csswg-drafts/issues/9350
 ```
 https://drafts.csswg.org/css-mixins-1/
 ```
-> Note for reviewers: css-mixins-1 currently defines `@function` only. `@mixin`/`@apply` are expected
-> to be added to this module (or a later level). Update this link to the specific `@mixin` /
-> `@apply` sections once they land in the ED.
+
 
 ---
 
@@ -130,25 +99,15 @@ Standardization venue: W3C CSS Working Group - CSS Functions and Mixins Module L
 
 | Signal | Status | Notes |
 |---|---|---|
-| Firefox (Gecko) | No signal | No published standards position on mixins specifically. (For reference, the sibling Custom Functions feature is also recorded as "no public signals" from Gecko.) |
-| Safari (WebKit) | No signal | The mixins/functions proposal originates from OddBird (Miriam Suzanne) building on Tab Atkins' custom-function work. No formal WebKit position on `@mixin` yet. |
-| Web developers | Positive (anecdotal) | Long-standing, heavy use of the equivalent Sass/Less mixins; demand captured in CSSWG #9350 and HTTP Archive Sass-usage data. The already-shipped Custom Functions feature is marked "Positive" by web devs - a reasonable proxy for appetite here. No formal survey link yet. |
+| Firefox (Gecko) | No signal | No published standards position on mixins specifically. |
+| Safari (WebKit) | No signal | No formal WebKit position on `@mixin` yet. |
+| Web developers | Positive | Long-standing, heavy use of the equivalent Sass/Less mixins. We see positive Dev sentiment the State of CSS [2024](https://2024.stateofcss.com/en-US/usage/#css_missing_features) and [2025](https://2025.stateofcss.com/en-US/usage/#css_missing_features). |
 
 ---
 
 ## 13. Interoperability and compatibility risks
 ```
-- Syntax is not yet finalized. Open design questions in #9350 include: the parameter-list delimiter
-  (comma vs. semicolon when argument values contain commas), whether parameter type/default are
-  declared inline or via @parameter-style sub-rules, and the result/output mechanism (@result block
-  vs. a descriptor).
-- Relationship to @function must stay consistent. Mixins and functions deliberately share parameter
-  syntax; divergence between the two would hurt learnability and interop.
-- Cascade / nesting interactions. @apply expands declarations at its point of use, so behavior with
-  the cascade, nesting, specificity, and shorthand/longhand expansion must be defined precisely to
-  avoid engines diverging.
-- Shipping before the spec stabilizes risks author-facing incompatibilities; recommend prefixing with
-  a dashed-ident (already implied by --name) and gating behind a flag through the experimental phase.
+- TDB
 ```
 
 ---
