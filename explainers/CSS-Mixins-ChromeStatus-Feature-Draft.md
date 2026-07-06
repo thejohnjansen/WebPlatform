@@ -11,7 +11,7 @@ CSS mixins (@mixin / @apply)
 
 ## 2. Summary
 ```
-Defines a reusable, parameterized block of style declarations and nested rules with the @mixin rule, then expands it into a style rule with @apply as if those declarations had been written inline. The mixin body puts the declarations to emit inside an @result block, while any local custom properties used to compute them stay private and never reach the element; parameters can be typed and given defaults, and @result can wrap output in conditional rules such as @supports and @media. This lets authors package consistent patterns - component styles, effects like gradient text, responsive shorthands - once and reuse them across a stylesheet without a CSS pre-processor.
+Defines a reusable, parameterized block of style declarations and nested style rules with the @mixin rule, then expands them in place within a style rule via @apply as if the mixin's contents had been written there directly. The mixin body puts the declarations and rules to emit inside an @result block, while any local custom properties used to compute them stay private and never reach the element; parameters can be typed and given defaults, and @result can contain conditional rules such as @supports and @media. This lets authors package consistent patterns – component styles, effects like gradient text, responsive shorthands – once and reuse them across a stylesheet without a CSS pre-processor.
 ```
 
 ---
