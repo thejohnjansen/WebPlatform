@@ -194,7 +194,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Custom_functions_and_mix
 
 ## 23. Web Feature ID
 ```
-I submitted a PR: https://github.com/web-platform-dx/web-features/pull/4149
+mixin
 ```
 
 ---
