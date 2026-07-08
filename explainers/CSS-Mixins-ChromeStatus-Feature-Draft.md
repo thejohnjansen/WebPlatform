@@ -16,7 +16,20 @@ Defines a reusable, parameterized block of style declarations and nested style r
 
 ---
 
-## 3. Blink component
+## Feature Owners
+```
+johnjansen@microsoft.com,kbabbitt@microsoft.com,leo.lee@microsoft.com
+```
+
+---
+
+## Feature Editors
+```
+stephanie.zhang@microsoft.com,brwalder@microsoft.com
+```
+
+---
+## Blink component
 ```
 Blink>CSS
 ```
