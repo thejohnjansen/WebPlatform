@@ -1,0 +1,47 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Line Clamp Demo</title>
+    <style>
+        .container {
+            width: 300px;
+            border: 2px solid #333;
+            padding: 10px;
+         }
+        .line {
+            height: 150px;
+            overflow: hidden;
+            line-clamp: 3;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            
+        }
+
+        .clip {
+            height: 20px;
+            overflow-y: clip;
+            overflow-x: auto;
+        }
+
+    </style>
+</head>
+
+<body>
+<div class="container">
+    
+    <p>Line-Clamp</p>
+    
+    <div class="line" tabindex="1">
+    start line-clamp text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc vel tincidunt fermentum, sapien justo luctus magna, sed vehicula neque velit nec nulla. Integer ac sapien ac justo tincidunt viverra. Curabitur at felis vitae lorem facilisis bibendum. Suspendisse potenti. Donec vel sapien at erat tincidunt varius in nec lorem. End of text.
+    </div>
+
+    <p>Y Clip is next</p>
+
+    <div class="clip" tabindex="2">
+    start clip text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc vel tincidunt fermentum, sapien justo luctus magna, sed vehicula neque velit nec nulla. Integer ac sapien ac justo tincidunt viverra. Curabitur at felis vitae lorem facilisis bibendum. Suspendisse potenti. Donec vel sapien at erat tincidunt varius in nec lorem. End of text.
+    </div>
+
+</div>
+</body>
