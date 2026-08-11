@@ -11,8 +11,8 @@
             padding: 10px;
         }
 
-        .line {
-            height: 25px;
+        .clamp {
+            height: 50px;
             overflow: hidden;
             line-clamp: 3;
             white-space: nowrap;
@@ -21,9 +21,13 @@
         }
 
         .clip {
-            height: 25px;
+            height: 50px;
             overflow-y: clip;
             overflow-x: auto;
+        }
+
+        .hidden {
+            visibility: hidden;
         }
     </style>
 </head>
@@ -31,23 +35,31 @@
 <body>
     <div class="container">
 
-        <p>Line-Clamp</p>
+        <p>Line-Clamp set to 3</p>
 
-        <div class="line" tabindex="1">
-            start line-clamp text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc vel
+        <div class="clamp" tabindex="1">
+            text start. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc vel
             tincidunt fermentum, sapien justo luctus magna, sed vehicula neque velit nec nulla. Integer ac sapien ac
             justo tincidunt viverra. Curabitur at felis vitae lorem facilisis bibendum. Suspendisse potenti. Donec vel
-            sapien at erat tincidunt varius in nec lorem. End of text.
+            sapien at erat tincidunt varius in nec lorem. text end.
         </div>
 
-        <p>Y Clip is next</p>
+        <p>Clip on the Y axis:</p>
 
         <div class="clip" tabindex="2">
-            start clip text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc vel tincidunt
+            text start. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc vel tincidunt
             fermentum, sapien justo luctus magna, sed vehicula neque velit nec nulla. Integer ac sapien ac justo
             tincidunt viverra. Curabitur at felis vitae lorem facilisis bibendum. Suspendisse potenti. Donec vel sapien
-            at erat tincidunt varius in nec lorem. End of text.
+            at erat tincidunt varius in nec lorem. text end.
         </div>
 
+        <p>Visibility set to hidden:</p>
+
+        <div tabindex="3">
+            text start. Lorem ipsum dolor sit amet, consectetur adipiscing elit. <span class="hidden">Sed euismod, nunc vel tincidunt
+            fermentum, sapien justo luctus magna, sed vehicula neque velit nec nulla. Integer ac sapien ac justo
+            tincidunt viverra. Curabitur at felis vitae lorem facilisis bibendum. Suspendisse potenti. Donec vel sapien
+            at erat tincidunt varius in nec lorem. text end.</span>
+        </div>
     </div>
 </body>
